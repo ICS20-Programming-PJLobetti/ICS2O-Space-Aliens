@@ -12,7 +12,7 @@ class TitleScene extends Phaser.Scene {
 
     this.titleSceneBackgroundImage = null
     this.titleScenText = null
-    this.titleSceneTextStyle = { font: '100px Times', fill: '#8F282B', align: 'center'}
+    this.titleSceneTextStyle = { font: '100px Times', fill: '#100B5D', align: 'center'}
   }
 
   init(data) {
@@ -21,11 +21,11 @@ class TitleScene extends Phaser.Scene {
 
   preload() {
     console.log('Title Scene')
-    this.load.image('titleSceneBackground', './assets/spacejetski.jpg')
+    this.load.image('titleSceneBackground', './assets/jetski.png')
   }
 
   create(data) {
-    this.splashSceneBackground = this.add.sprite(0, 0, 'titleSceneBackground').setScale(2.50)
+    this.splashSceneBackground = this.add.sprite(0, 0, 'titleSceneBackground').setScale(2.75)
     this.splashSceneBackground.x = 1920 / 2
     this.splashSceneBackground.y = 1080 / 2
 
@@ -33,6 +33,9 @@ class TitleScene extends Phaser.Scene {
   }
 
   update(time, delta) {
+    if (time > 6000) {
+      this.scene.switch('menuScene')
+    }
   }
 }
 
