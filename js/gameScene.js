@@ -7,6 +7,13 @@
 // This is the Game Scene
 
 class GameScene extends Phaser.Scene {
+
+  // create an alien
+  creatAlien () {
+    const anAlien = this.physics.add.sprite(100, 100, 'alien')
+    this.alienGroup.add.(anAlien)
+  }
+  
   constructor() {
     super({ key: 'gameScene' })
 
@@ -26,6 +33,9 @@ class GameScene extends Phaser.Scene {
     this.load.image('starBackground', 'assets/space.png')
     this.load.image('ship', 'assets/spaceJetski.png')
     this.load.image('missile', 'assets/weapon_0054.png')
+    this.load.image('alien', 'assets/alien2.png')
+    // sound file
+    this.load.audio('laser', 'assets/pewww.mp3')
   }
 
   create(data) {
@@ -36,6 +46,10 @@ class GameScene extends Phaser.Scene {
 
     // create a group for the missiles
     this.missileGroup = this.physics.add.group()
+
+    // create a group for the aliens
+    this.aliensGroup = this.add.group()
+    this.createAlien()
   }
 
   update(time, delta) {
@@ -65,12 +79,20 @@ class GameScene extends Phaser.Scene {
         this.fireMissile = true 
         const aNewMissile = this.physics.add.sprite(this.ship.x, this.ship.y -70, 'missile')
         this.missileGroup.add(aNewMissile)
+        this.sound.play('laser')
       }
     }
 
     if (keySpaceObj.isUp === true) {
       this.fireMissile = false
     }
+
+    this.missileGroup.children.each(function (item) {
+      item.y = item.y - 15
+      if (item.y < 0) {
+        item.destroy()
+      }
+    })
   }
 }
 
