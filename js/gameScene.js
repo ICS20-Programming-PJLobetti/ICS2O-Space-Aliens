@@ -7,6 +7,7 @@
 // This is the Game Scene
 
 class GameScene extends Phaser.Scene {
+  
   // create an alien
   createAlien () {
     const alienXLocation = Math.floor(Math.random() * 1920) + 1
@@ -21,13 +22,15 @@ class GameScene extends Phaser.Scene {
   constructor() {
     super({ key: 'gameScene' })
 
-    this.background = null
     this.ship = null
     this.fireMissile = false
+    this.score = 0
+    this.scoreText = null
+    this.scoreTextStyle = { font: '65px Arial', fill: '#ffffff', align: 'center' }
   }
 
   init(data) {
-    this.cameras.main.setBackgroundColor('#ffffff')
+    this.cameras.main.setBackgroundColor('#0x5f6e7a')
   }
 
   preload() {
@@ -38,8 +41,9 @@ class GameScene extends Phaser.Scene {
     this.load.image('ship', 'assets/spaceJetski.png')
     this.load.image('missile', 'assets/weapon_0054.png')
     this.load.image('alien', 'assets/alien2.png')
-    // sound file
+    // sound files
     this.load.audio('laser', 'assets/pewww.mp3')
+    this.load.audio('explosion', 'assets/BOOM.mp3')
   }
 
   create(data) {
@@ -54,6 +58,17 @@ class GameScene extends Phaser.Scene {
     // create a group for the aliens
     this.alienGroup = this.add.group()
     this.createAlien()
+
+    // Collisions between missiles and aliens
+    this.physics.add.collider(this.missileGroup, this.alienGroup, function (missileCollied, alienCollied) {
+      alienCollied.destroy()
+      missileCollied.destroy()
+      this.sound.play('explosion')
+      this.score = this.score + 1
+      this.scoreText.setText('Score: ' + this.score.toString())
+      this.createAlien()
+      this.createAlien()
+    }.bind(this))
   }
 
   update(time, delta) {
