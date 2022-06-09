@@ -52,7 +52,7 @@ class GameScene extends Phaser.Scene {
     this.missileGroup = this.physics.add.group()
 
     // create a group for the aliens
-    this.aliensGroup = this.add.group()
+    this.alienGroup = this.add.group()
     this.createAlien()
   }
 
