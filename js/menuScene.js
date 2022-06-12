@@ -12,7 +12,7 @@ class MenuScene extends Phaser.Scene {
 
     this.menuSceneBackgroundImage = null
     this.startButton = null
-    this.menuSceneTextStyle = { font: '20px Times', fill: '#bf5606', align: 'center'}
+    this.menuSceneTextStyle = { font: '35px Times', fill: '#bf5606', align: 'center'}
   }
 
   init(data) {
@@ -33,8 +33,8 @@ class MenuScene extends Phaser.Scene {
     this.startButton = this.add.sprite(1920 / 2, (1080 / 2) + 100, 'startButton')
     this.startButton.setInteractive({ useHandCurser: true })
     this.startButton.on('pointerdown', () => this.clickedButton())
-
-    this.menuSceneText = this.add.text(1920 / 2, (1080 / 2), 'To move around you will need to use the left and right arrow keys. To shoot press the spacebar. After death, click the screen to start over', this.menuSceneTextStyle).setOrigin(0.5)
+    // Instructions on how to play
+    this.menuSceneText = this.add.text(1920 / 2, (1080 / 2) - 450, 'To move around you will need to use the left and right arrow keys. To shoot press the spacebar. After death, click the screen to start over', this.menuSceneTextStyle).setOrigin(0.5)
   }
 
   update(time, delta) {

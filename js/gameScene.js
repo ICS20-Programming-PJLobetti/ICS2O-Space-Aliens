@@ -18,7 +18,7 @@ class GameScene extends Phaser.Scene {
     anAlien.body.velocity.x = alienXVelocity
     this.alienGroup.add(anAlien)
   }
-  
+  // Adding in all visual aspects for the scene
   constructor() {
     super({ key: 'gameScene' })
 
@@ -51,9 +51,9 @@ class GameScene extends Phaser.Scene {
   create(data) {
     this.background = this.add.image(0, 0, 'starBackground').setScale(2.0)
     this.background.setOrigin(0, 0)
-
+    // score pops up
     this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle)
-
+    // creating the ship  
     this.ship = this.physics.add.sprite(1920 / 2, 1080 - 100, 'ship').setScale(0.8)
 
     // create a group for the missiles
@@ -89,25 +89,25 @@ class GameScene extends Phaser.Scene {
 
   update(time, delta) {
     // called 60 times a second
-
+    // the diffrent keys being used in game
     const keyLeftObj = this.input.keyboard.addKey('LEFT')
     const keyRightObj = this.input.keyboard.addKey('RIGHT')
     const keySpaceObj = this.input.keyboard.addKey('SPACE')
-
+    // left arrow key
     if (keyLeftObj.isDown === true) {
       this.ship.x = this.ship.x - 15
       if (this.ship.x < 0) {
         this.ship.x = 0
       }
     }
-
+    // right arrow key
     if (keyRightObj.isDown === true) {
       this.ship.x = this.ship.x + 15
       if (this.ship.x > 1920) {
         this.ship.x = 1920
       }
     }
-
+    // spacebar to fire missiles
     if (keySpaceObj.isDown === true) {
       if (this.fireMissile === false) {
         // fire missile
