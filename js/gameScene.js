@@ -90,6 +90,9 @@ class GameScene extends Phaser.Scene {
 
   update(time, delta) {
     // called 60 times a second
+    // background music for the game
+    var audio = new Audio('sounds/spaceAmbience.mp3');
+    audio.play();
     // the diffrent keys being used in game
     const keyLeftObj = this.input.keyboard.addKey('LEFT')
     const keyRightObj = this.input.keyboard.addKey('RIGHT')
@@ -129,7 +132,14 @@ class GameScene extends Phaser.Scene {
         item.destroy()
       }
     })
+    // allows for aliens to reset there position after going off the screen.
+    this.alienGroup.children.each(function (item) {
+      if ((item.y > 1080) || (item.x < 0 || item.x > 1920)) {
+        item.y = -20
+        const alienYCoordinate = Math.floor(Math.random() * 1920) + 1
+        item.x = alienYCoordinate
+      }
+    })
   }
 }
-
   export default GameScene
