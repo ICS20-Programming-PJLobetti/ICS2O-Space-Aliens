@@ -49,6 +49,11 @@ class GameScene extends Phaser.Scene {
   }
 
   create(data) {
+    // background music for the game
+    var audio = new Audio('sounds/spaceAmbience.mp3');
+    audio.play();
+    audio.loop = true
+    // sets background
     this.background = this.add.image(0, 0, 'starBackground').setScale(2.0)
     this.background.setOrigin(0, 0)
     // score pops up
@@ -90,9 +95,6 @@ class GameScene extends Phaser.Scene {
 
   update(time, delta) {
     // called 60 times a second
-    // background music for the game
-    var audio = new Audio('sounds/spaceAmbience.mp3');
-    audio.play();
     // the diffrent keys being used in game
     const keyLeftObj = this.input.keyboard.addKey('LEFT')
     const keyRightObj = this.input.keyboard.addKey('RIGHT')
